@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 jobs:
-  setup:
+  linting:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,7 +17,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: "3.12" # Specify your required Python version
+          python-version: "3.12"
 
       - name: Install Poetry
         run: |
@@ -28,22 +28,17 @@ jobs:
           echo "$HOME/.local/bin" >> $GITHUB_PATH
           poetry install
 
-  linting:
-    needs: setup
-    runs-on: ubuntu-latest
-
-    steps:
       - name: Run flake8
         run: poetry run flake8 --config=.flake8 .
 
       - name: Run mypy
-        run: mypy .
+        run: poetry run mypy .
 
       - name: Run pylint
-        run: pylint --recursive=true .
+        run: poetry run pylint --recursive=true .
 
       - name: Run isort
-        run: isort -c .
+        run: poetry run isort --check-only .
 
       - name: Run black
-        run: black --check .
+        run: poetry run black --check .
