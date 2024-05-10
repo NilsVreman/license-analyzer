@@ -1,0 +1,78 @@
+[tool.poetry]
+name = "license-analyzer"
+version = "0.1.0"
+description = ""
+authors = ["NilsVreman <nils.vreman@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "license_analyzer"}]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+
+
+[tool.poetry.group.dev.dependencies]
+flake8 = "^7.0.0"
+mypy = "^1.10.0"
+pylint = "^3.1.0"
+black = "^24.4.2"
+isort = "^5.13.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 120
+
+[tool.isort]
+line_length = 120
+multi_line_output = 3
+include_trailing_comma = true
+use_parentheses = true
+
+
+[tool.pylint."MASTER"]
+ignore = ["__pycache__", ".venv", ".git", "build", "dist"]
+ignore-patterns = ["^.*pb2.py"]
+
+[tool.pylint."MESSAGES CONTROL"]
+disable = [
+  "bad-indentation",
+  "line-too-long",
+  "logging-fstring-interpolation",
+  "missing-class-docstring",
+  "missing-function-docstring",
+  "missing-module-docstring",
+  "missing-final-newline",
+  "too-few-public-methods",
+  "too-many-instance-attributes",
+  "too-many-public-methods",
+  "duplicate-code",
+  "import-error",
+]
+
+[tool.pylint."BASIC"]
+argument-naming-style = "snake_case"
+attr-naming-style = "snake_case"
+function-naming-style = "snake_case"
+method-naming-style = "snake_case"
+module-naming-style = "snake_case"
+variable-naming-style = "snake_case"
+class-naming-style = "PascalCase"
+const-naming-style = "UPPER_CASE"
+
+[tool.pylint."FORMAT"]
+max-line-length = 120
+
+[tool.pylint."REFACTORING"]
+max-nested-blocks = 5
+
+[tool.pylint."DESIGN"]
+max-args = 5
+
+[tool.mypy]
+strict = true
+ignore_missing_imports = true
+ignore_errors = false
+exclude = ["__pycache__", ".venv", ".git", "build", "dist"]
