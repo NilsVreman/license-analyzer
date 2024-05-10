@@ -9,6 +9,8 @@ packages = [{include = "license_analyzer"}]
 
 [tool.poetry.dependencies]
 python = "^3.12"
+pip-licenses = "^4.4.0"
+pydantic = "^2.7.1"
 
 
 [tool.poetry.group.dev.dependencies]
@@ -76,3 +78,9 @@ strict = true
 ignore_missing_imports = true
 ignore_errors = false
 exclude = ["__pycache__", ".venv", ".git", "build", "dist"]
+plugins = ["pydantic.mypy"]
+
+[tool.mypy-pydantic]
+init_forbid_extra = true
+init_typed = true
+warn_required_dynamic_aliases = true
