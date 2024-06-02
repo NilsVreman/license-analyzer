@@ -1,18 +1,16 @@
 import re
 import unittest
-from collections import namedtuple
 
 from packaging.markers import Marker
 from packaging.requirements import Requirement
+
+from .models import Dependency
 
 normalisation_pattern = re.compile(r"[-_.]+")
 
 
 def normalize_dist_name(dist_name: str) -> str:
     return normalisation_pattern.sub("-", dist_name).lower()
-
-
-Dependency = namedtuple("Dependency", ["name", "extras", "specifier", "marker"])
 
 
 def parse_dependencies(reqs: list[str]) -> list[Dependency]:
