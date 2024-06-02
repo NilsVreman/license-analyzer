@@ -1,8 +1,11 @@
 from __future__ import annotations
 
-from typing import Optional
+import collections
+from typing import Annotated, Optional
 
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, Field
+
+Dependency = collections.namedtuple("Dependency", ["name", "extras", "specifier", "marker"])
 
 
 class DistributionMetadata(BaseModel):
@@ -10,11 +13,15 @@ class DistributionMetadata(BaseModel):
 
     name: str
     version: str
-    license: Optional[str] = None
-    license_classifiers: list[str] = []
-    author: Optional[str] = None
-    maintainer: Optional[str] = None
-    url: Optional[str] = None
-    description: Optional[str] = None
+    license: Annotated[Optional[str], Field(default=None)]
+    license_classifiers: Annotated[list[str], Field(default=[])]
+    author: Annotated[Optional[str], Field(default=None)]
+    maintainer: Annotated[Optional[str], Field(default=None)]
+    url: Annotated[Optional[str], Field(default=None)]
+    description: Annotated[Optional[str], Field(default=None)]
 
-    dependencies: Optional[list[DistributionMetadata]] = None
+    dependencies: Annotated[list[DistributionMetadata], Field(default=[])]
+
+
+class DependencyGraph(BaseModel):
+    distributions: Annotated[dict[str, DistributionMetadata], Field(default_factory=dict)]
